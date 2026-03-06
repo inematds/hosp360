@@ -1,0 +1,20 @@
+{
+  "name": "crmhosp",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w @crmhosp/web",
+    "dev:api": "npm run start:dev -w @crmhosp/api",
+    "build": "npm run build -w @crmhosp/web && npm run build -w @crmhosp/api",
+    "lint": "npm run lint -w @crmhosp/web && npm run lint -w @crmhosp/api",
+    "typecheck": "npm run typecheck -w @crmhosp/web && npm run typecheck -w @crmhosp/api"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
+

@@ -1,0 +1,13 @@
+node_modules/
+.next/
+dist/
+.turbo/
+.env
+.env.local
+.env.*.local
+coverage/
+*.log
+apps/api/dist/
+apps/web/.next/
+postgres-data/
+
