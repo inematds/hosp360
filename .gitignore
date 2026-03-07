@@ -7,7 +7,7 @@ dist/
 .env.*.local
 coverage/
 *.log
+*.tsbuildinfo
 apps/api/dist/
 apps/web/.next/
 postgres-data/
-

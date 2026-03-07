@@ -12,6 +12,13 @@ const roadmap = [
   "Sprint 3: agenda, solicitacao, confirmacao e cancelamento",
 ];
 
+const modules = [
+  "Portal do paciente com identidade visual inicial",
+  "Tela de acesso pronta para integrar com Keycloak",
+  "Fluxo piloto de solicitacao de agendamento via API",
+  "Base para painel operacional e atendimento humano",
+];
+
 export default function HomePage() {
   return (
     <main className="page">
@@ -24,6 +31,10 @@ export default function HomePage() {
             infraestrutura necessaria para autenticacao, agenda e atendimento digital.
           </p>
           <div className="actions">
+            <a href="/login" className="primary">Acessar portal</a>
+            <a href="/agendamento" className="secondary">Abrir agendamento piloto</a>
+          </div>
+          <div className="actions subdued-actions">
             <a href="#roadmap" className="primary">Ver entregas iniciais</a>
             <a href="http://localhost:3001/health" className="secondary">Testar health da API</a>
           </div>
@@ -41,6 +52,15 @@ export default function HomePage() {
       </section>
 
       <section className="grid">
+        <article className="panel">
+          <h2>Entregas prontas nesta base</h2>
+          <ul>
+            {modules.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+
         <article className="panel">
           <h2>Prioridades de produto</h2>
           <ul>
@@ -62,4 +82,3 @@ export default function HomePage() {
     </main>
   );
 }
-

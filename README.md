@@ -28,6 +28,17 @@ Base tecnica inicial do modulo de autoatendimento do paciente.
 4. Solicita agendamento
 5. Acompanha status e abre atendimento via chat
 
+## O que ja esta implementado
+
+- landing page inicial do portal
+- tela de login estrutural para futura integracao com Keycloak
+- tela piloto de agendamento em `apps/web/src/app/agendamento/page.tsx`
+- endpoint `GET /health`
+- endpoint `GET /specialties`
+- endpoint `GET /slots`
+- endpoint `POST /appointment-requests`
+- endpoint `GET /appointment-requests`
+
 ## Como subir a infraestrutura local
 
 1. Copiar `.env.example` para `.env`
@@ -62,4 +73,3 @@ npm run dev:web
 - agenda e horarios
 - solicitacao de agendamento
 - painel interno basico
-

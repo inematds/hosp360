@@ -102,6 +102,10 @@ h2 {
   margin-top: 28px;
 }
 
+.subdued-actions {
+  margin-top: 12px;
+}
+
 .actions a {
   padding: 14px 18px;
   border-radius: 999px;
@@ -143,9 +147,128 @@ h2 {
   padding: 28px;
 }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-copy {
+  margin: 0 0 24px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.scheduler {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr;
+  gap: 24px;
+}
+
+.scheduler-form,
+.login-form {
+  display: grid;
+  gap: 16px;
+}
+
+.scheduler-form label,
+.login-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.scheduler-form input,
+.scheduler-form select,
+.scheduler-form textarea,
+.login-form input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font: inherit;
+}
+
+.scheduler-form button,
+.login-form button {
+  border: 0;
+  border-radius: 16px;
+  padding: 15px 18px;
+  background: var(--brand);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scheduler-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.status {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+.status.success {
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--brand-dark);
+}
+
+.status.error {
+  background: rgba(190, 24, 93, 0.1);
+  color: #9d174d;
+}
+
+.slot-summary {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.slot-summary div {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.slot-summary dt {
+  margin-bottom: 4px;
+  color: var(--muted);
+}
+
+.slot-summary dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.login-shell {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+}
+
+.login-panel {
+  width: min(560px, 100%);
+}
+
+.login-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 900px) {
   .hero,
-  .grid {
+  .grid,
+  .scheduler {
     grid-template-columns: 1fr;
   }
 
@@ -154,5 +277,9 @@ h2 {
   .panel {
     padding: 24px;
   }
-}
 
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
