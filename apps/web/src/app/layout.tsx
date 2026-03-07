@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { Nav } from "../components/nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CRMHosp Autoatendimento",
-  description: "Portal inicial de autoatendimento do paciente",
+  title: "Hosp360 - Autoatendimento Hospitalar",
+  description: "Portal de autoatendimento do paciente - Agendamento, consultas, atendimento e comunicacao hospitalar integrada.",
 };
 
 export default function RootLayout({
@@ -13,8 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
-

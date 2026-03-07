@@ -1,123 +1,52 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-
-type Specialty = {
-  id: string;
-  name: string;
-  description: string;
-};
-
-type Slot = {
-  id: string;
-  specialtyId: string;
-  professionalId: string;
-  professional: string;
-  specialty: string;
-  date: string;
-  time: string;
-  location: string;
-};
+import { FormEvent, useMemo, useState } from "react";
+import { specialties, slots } from "../lib/mock-data";
 
 type ApiStatus = {
   type: "idle" | "success" | "error";
   message: string;
 };
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
-
 export function SchedulingForm() {
-  const [specialties, setSpecialties] = useState<Specialty[]>([]);
-  const [slots, setSlots] = useState<Slot[]>([]);
-  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState(specialties[0].id);
   const [selectedSlot, setSelectedSlot] = useState("");
-  const [patientName, setPatientName] = useState("");
-  const [patientDocument, setPatientDocument] = useState("");
+  const [patientName, setPatientName] = useState("Maria Silva");
+  const [patientDocument, setPatientDocument] = useState("123.456.789-00");
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState<ApiStatus>({ type: "idle", message: "" });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetch(`${apiUrl}/specialties`)
-      .then((response) => response.json())
-      .then((data: Specialty[]) => {
-        setSpecialties(data);
-        if (data[0]) {
-          setSelectedSpecialty(data[0].id);
-        }
-      })
-      .catch(() => {
-        setStatus({
-          type: "error",
-          message: "Nao foi possivel carregar as especialidades da API.",
-        });
-      });
-  }, []);
-
-  useEffect(() => {
-    if (!selectedSpecialty) {
-      return;
-    }
-
-    fetch(`${apiUrl}/slots?specialtyId=${selectedSpecialty}`)
-      .then((response) => response.json())
-      .then((data: Slot[]) => {
-        setSlots(data);
-        setSelectedSlot(data[0]?.id ?? "");
-      })
-      .catch(() => {
-        setStatus({
-          type: "error",
-          message: "Nao foi possivel carregar os horarios disponiveis.",
-        });
-      });
-  }, [selectedSpecialty]);
+  const filteredSlots = useMemo(
+    () => slots.filter((s) => s.specialtyId === selectedSpecialty),
+    [selectedSpecialty],
+  );
 
   const selectedSlotData = useMemo(
-    () => slots.find((slot) => slot.id === selectedSlot),
-    [selectedSlot, slots],
+    () => slots.find((s) => s.id === selectedSlot),
+    [selectedSlot],
   );
+
+  function handleSpecialtyChange(value: string) {
+    setSelectedSpecialty(value);
+    const firstSlot = slots.find((s) => s.specialtyId === value);
+    setSelectedSlot(firstSlot?.id ?? "");
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setStatus({ type: "idle", message: "" });
 
-    try {
-      const response = await fetch(`${apiUrl}/appointment-requests`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          patientName,
-          patientDocument,
-          specialtyId: selectedSpecialty,
-          slotId: selectedSlot,
-          reason,
-        }),
-      });
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-      if (!response.ok) {
-        throw new Error("Falha ao registrar solicitacao");
-      }
-
-      const data = await response.json();
-      setStatus({
-        type: "success",
-        message: `Solicitacao registrada com protocolo ${data.protocol}.`,
-      });
-      setPatientName("");
-      setPatientDocument("");
-      setReason("");
-    } catch {
-      setStatus({
-        type: "error",
-        message: "Nao foi possivel registrar a solicitacao agora.",
-      });
-    } finally {
-      setLoading(false);
-    }
+    const protocol = `H360-${String(Math.floor(Math.random() * 99999)).padStart(5, "0")}`;
+    setStatus({
+      type: "success",
+      message: `Solicitacao registrada com protocolo ${protocol}. Voce recebera a confirmacao por WhatsApp e no portal.`,
+    });
+    setReason("");
+    setLoading(false);
   }
 
   return (
@@ -126,15 +55,15 @@ export function SchedulingForm() {
         <p className="eyebrow">Fluxo piloto</p>
         <h2>Solicitacao de agendamento</h2>
         <p className="section-copy">
-          Esta tela representa o primeiro fluxo funcional do autoatendimento. O paciente escolhe a
-          especialidade, seleciona o horario publicado e registra sua solicitacao.
+          Escolha a especialidade, selecione o horario publicado e registre sua solicitacao.
+          A confirmacao sera enviada pelo portal e por WhatsApp.
         </p>
         <form className="scheduler-form" onSubmit={handleSubmit}>
           <label>
             Nome do paciente
             <input
               value={patientName}
-              onChange={(event) => setPatientName(event.target.value)}
+              onChange={(e) => setPatientName(e.target.value)}
               placeholder="Nome completo"
               required
             />
@@ -143,7 +72,7 @@ export function SchedulingForm() {
             Documento
             <input
               value={patientDocument}
-              onChange={(event) => setPatientDocument(event.target.value)}
+              onChange={(e) => setPatientDocument(e.target.value)}
               placeholder="CPF ou prontuario"
               required
             />
@@ -152,7 +81,7 @@ export function SchedulingForm() {
             Especialidade
             <select
               value={selectedSpecialty}
-              onChange={(event) => setSelectedSpecialty(event.target.value)}
+              onChange={(e) => handleSpecialtyChange(e.target.value)}
               required
             >
               {specialties.map((specialty) => (
@@ -164,8 +93,9 @@ export function SchedulingForm() {
           </label>
           <label>
             Horario disponivel
-            <select value={selectedSlot} onChange={(event) => setSelectedSlot(event.target.value)} required>
-              {slots.map((slot) => (
+            <select value={selectedSlot} onChange={(e) => setSelectedSlot(e.target.value)} required>
+              <option value="">Selecione um horario</option>
+              {filteredSlots.map((slot) => (
                 <option key={slot.id} value={slot.id}>
                   {slot.date} {slot.time} - {slot.professional}
                 </option>
@@ -176,7 +106,7 @@ export function SchedulingForm() {
             Motivo do atendimento
             <textarea
               value={reason}
-              onChange={(event) => setReason(event.target.value)}
+              onChange={(e) => setReason(e.target.value)}
               rows={4}
               placeholder="Descreva resumidamente o motivo"
               required
@@ -215,10 +145,18 @@ export function SchedulingForm() {
             </div>
           </dl>
         ) : (
-          <p className="section-copy">Selecione uma especialidade para visualizar os horarios.</p>
+          <p className="section-copy">Selecione uma especialidade e horario para visualizar o resumo.</p>
         )}
+
+        <div className="side-info mt-24">
+          <h3>Canais de confirmacao</h3>
+          <ul>
+            <li>Confirmacao automatica no portal</li>
+            <li>Notificacao por WhatsApp</li>
+            <li>Alerta interno via Telegram para equipe</li>
+          </ul>
+        </div>
       </div>
     </section>
   );
 }
-

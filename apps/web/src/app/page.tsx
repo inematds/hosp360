@@ -66,7 +66,10 @@ export default function HomePage() {
             via Telegram e arquitetura preparada para crescimento hospitalar.
           </p>
           <div className="actions">
-            <a href="#modulos" className="primary">
+            <a href="/login" className="primary">
+              Acessar portal
+            </a>
+            <a href="#modulos" className="secondary">
               Ver modulos
             </a>
             <a href="#painel" className="secondary">
