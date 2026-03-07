@@ -27,7 +27,9 @@ Objetivo da fase:
 - confirme ou cancele consultas
 - acompanhe status da solicitacao
 - inicie atendimento por chat
+- consulte agenda ou atendimento por WhatsApp
 - receba notificacoes e orientacoes
+- permita comunicacao interna da equipe via Telegram
 
 ## Resultado Esperado da Primeira Entrega
 
@@ -38,6 +40,8 @@ Ao final da fase inicial, o hospital deve ter:
 - agenda disponivel para consulta
 - fluxo de solicitacao e confirmacao de consultas
 - integracao com atendimento humano
+- canal de WhatsApp para consulta e acompanhamento do paciente
+- canal interno via Telegram para alertas e comunicacao operacional
 - base pronta para futura integracao com o core hospitalar
 
 ## Arquitetura Inicial Recomendada
@@ -57,6 +61,8 @@ Ao final da fase inicial, o hospital deve ter:
 - Banco de dados: PostgreSQL
 - Autenticacao: Keycloak
 - Chat: Chatwoot
+- Canal paciente: WhatsApp
+- Canal interno: Telegram
 - Containers: Docker Compose
 - Monitoramento inicial: logs estruturados + health checks
 
@@ -97,6 +103,7 @@ Funcionalidades:
 Funcionalidades:
 
 - chat inicial com paciente
+- atendimento e consulta de agenda por WhatsApp
 - triagem basica
 - transferencia para atendente humano
 - registro do motivo do contato
@@ -110,6 +117,8 @@ Funcionalidades:
 - alerta de consulta agendada
 - aviso de remarcacao ou cancelamento
 - lembrete automatico
+- envio de mensagens ao paciente por WhatsApp
+- envio de alertas internos por Telegram
 
 ### 5. Administracao Basica
 
@@ -196,10 +205,12 @@ Entregaveis:
 - vincular atendimento ao paciente autenticado
 - criar fila inicial de atendimento
 - registrar assunto do contato
+- desenhar fluxo inicial de atendimento por WhatsApp
 
 Entregaveis:
 
 - paciente consegue abrir conversa a partir do portal
+- paciente consegue ser redirecionado para atendimento via WhatsApp
 
 ## Sprint 6 - Notificacoes e Operacao
 
@@ -208,11 +219,13 @@ Entregaveis:
 - notificar cancelamento ou remarcacao
 - criar painel operacional simples
 - criar logs e trilha de auditoria
+- enviar alertas internos para Telegram
 
 Entregaveis:
 
 - operacao minima assistida
 - acompanhamento das solicitacoes
+- equipe recebe alertas internos em canal Telegram
 
 ## Estrutura Funcional do Sistema
 
@@ -225,12 +238,14 @@ Entregaveis:
 - confirmacao e cancelamento
 - visualizacao de historico
 - abertura de chat
+- consulta e atendimento via WhatsApp
 
 ### Perfil atendente
 
 - visualizar fila de solicitacoes
 - atualizar status
 - responder no chat
+- receber avisos e alertas no Telegram
 - consultar dados basicos do paciente
 
 ### Perfil administrador
@@ -272,6 +287,8 @@ Entidades recomendadas:
 - Keycloak para autenticacao
 - Chatwoot para atendimento
 - servico de e-mail ou WhatsApp para notificacoes
+- integracao com WhatsApp para consulta e atendimento do paciente
+- integracao com Telegram para comunicacao interna e alertas operacionais
 
 ### Integracoes da fase 2
 

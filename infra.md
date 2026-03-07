@@ -25,6 +25,8 @@ Definir a infraestrutura base para implementar o sistema de autoatendimento do p
 ## Atendimento e Chat
 
 - Chatwoot
+- WhatsApp para atendimento e consulta do paciente
+- Telegram para comunicacao interna da equipe
 
 ## Infraestrutura de Execucao
 
@@ -49,6 +51,11 @@ Definir a infraestrutura base para implementar o sistema de autoatendimento do p
 
 - VPS Linux com Docker
 
+### Canais de comunicacao
+
+- WhatsApp Business API ou provedor compativel para contato com paciente
+- Bot do Telegram para alertas internos, triagem operacional e avisos para equipe
+
 ## Estrutura Recomendada
 
 1. Portal do paciente em Next.js hospedado na Vercel
@@ -56,6 +63,8 @@ Definir a infraestrutura base para implementar o sistema de autoatendimento do p
 3. PostgreSQL gerenciado na nuvem
 4. Keycloak em VPS propria
 5. Chatwoot em VPS propria
+6. WhatsApp integrado ao fluxo do paciente
+7. Telegram integrado ao fluxo interno da operacao
 
 ## Resumo Direto
 
@@ -65,5 +74,7 @@ Definir a infraestrutura base para implementar o sistema de autoatendimento do p
 - Banco: PostgreSQL
 - Auth: Keycloak
 - Chat: Chatwoot
+- Paciente: WhatsApp
+- Interno: Telegram
 - Containers: Docker
 - Hospedagem: Vercel + Railway/Render + VPS

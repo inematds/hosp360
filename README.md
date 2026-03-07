@@ -18,6 +18,8 @@ Base tecnica inicial do modulo de autoatendimento do paciente.
 - Banco: PostgreSQL
 - Auth: Keycloak
 - Chat: Chatwoot
+- Paciente: WhatsApp
+- Interno: Telegram
 - Infra local: Docker Compose
 
 ## Fluxo inicial previsto
@@ -26,7 +28,8 @@ Base tecnica inicial do modulo de autoatendimento do paciente.
 2. Faz login ou cadastro
 3. Consulta agenda disponivel
 4. Solicita agendamento
-5. Acompanha status e abre atendimento via chat
+5. Acompanha status e abre atendimento via WhatsApp
+6. Equipe recebe alertas internos via Telegram
 
 ## O que ja esta implementado
 
@@ -38,6 +41,8 @@ Base tecnica inicial do modulo de autoatendimento do paciente.
 - endpoint `GET /slots`
 - endpoint `POST /appointment-requests`
 - endpoint `GET /appointment-requests`
+- diretriz funcional para atendimento do paciente por WhatsApp
+- diretriz funcional para comunicacao interna por Telegram
 
 ## Como subir a infraestrutura local
 
@@ -72,4 +77,6 @@ npm run dev:web
 - cadastro de paciente
 - agenda e horarios
 - solicitacao de agendamento
+- integracao com WhatsApp para paciente
+- integracao com Telegram para equipe interna
 - painel interno basico
